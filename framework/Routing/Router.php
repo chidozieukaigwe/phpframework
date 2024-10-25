@@ -2,6 +2,8 @@
 
 namespace ChidoUkaigwe\Framework\Routing;
 
+use ChidoUkaigwe\Framework\Http\Exception\HttpException;
+use ChidoUkaigwe\Framework\Http\Exception\HttpRequestMethodException;
 use ChidoUkaigwe\Framework\Http\Request;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
@@ -14,9 +16,12 @@ class Router implements RouterInterface
     {
         $routeInfo = $this->extractRouteInfo($request);
 
-        [$status, [$controller, $method], $vars] = $routeInfo;
+        [$handler, $vars] = $routeInfo;
+
+        [$controller, $method] = $handler;
 
         return [[new $controller, $method], $vars];
+        
     }
 
     private function extractRouteInfo(Request $request)
@@ -45,10 +50,10 @@ class Router implements RouterInterface
                 break;
             case Dispatcher::METHOD_NOT_ALLOWED:
                 $allowedMethods = implode(',', $routeInfo[1]);
-                return '';
+                throw new HttpRequestMethodException("The allowed methods are $allowedMethods");
                 break;
             default:
-                # code...
+                throw new HttpException('Not Found');
                 break;
         }
     }
