@@ -2,49 +2,29 @@
 
 namespace ChidoUkaigwe\Framework\Http;
 
-use FastRoute\RouteCollector;
-
-use function FastRoute\simpleDispatcher;
+use ChidoUkaigwe\Framework\Routing\Router;
 
 class Kernel 
 {
+    public function __construct(
+        private Router $router
+    )
+    {
+        
+    }
+
     public function handle(Request $request): Response
     {
-       
-        // Create a dispatcher
-        $dispatcher = simpleDispatcher(function (RouteCollector $routeCollector) {
 
-            $routes = include BASE_PATH . '/routes/web.php';
-
-            foreach ($routes as $route) {
-                $routeCollector->addRoute(...$route);
-            }
-
-            // $routeCollector->addRoute('GET', '/', function() {
-            //     $content = '<h1>Hello World From Kernel</h1>';
-
-            //     return new Response($content);
-            // });
-
-            // $routeCollector->addRoute('GET', '/posts/{id:\d+}', function($routeParams) {
-            //     $content = "<h1>This is post {$routeParams['id']}</h1>";
-
-            //     return new Response($content);
-            // });
-        });
-
-        //  Dispatch a URI, to obtain the route info
-
-        $routeInfo = $dispatcher->dispatch(
-            $request->getMethod(),
-            $request->getPathInfo()
-        );
-
-        [$status, [$controller, $method], $vars] = $routeInfo;
-
-        $response = (new $controller())->$method($vars);
+        try {
+            [$routeHandler, $vars] = $this->router->dispatch($request);
+            $response = call_user_func_array($routeHandler, $vars);
+        }catch (\Exception $exception) {
+            $response = new Response($exception->getMessage(), 400);
+        }
 
         return $response;
+       
 
     }
 }
