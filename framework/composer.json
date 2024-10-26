@@ -1,0 +1,23 @@
+{
+    "name": "chido-ukaigwe/php-framework-pro",
+    "description": "A PHP framework tutorial project",
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chido Ukaigwe",
+            "email": "chidodesigns@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ChidoUkaigwe\\Framework\\": "src/"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "7.2.x-dev"
+    },
+    "require": {
+        "nikic/fast-route": "2.0.x-dev"
+    }
+}
