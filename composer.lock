@@ -4,8 +4,42 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c313419d29dbfa52484f30062bf5991",
+    "content-hash": "852a6830701763b204fc31ad576fba55",
     "packages": [
+        {
+            "name": "chido-ukaigwe/php-framework-pro",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "framework",
+                "reference": "82d80ca9566be3b19ae5649090125ae5976c970a"
+            },
+            "require": {
+                "nikic/fast-route": "2.0.x-dev"
+            },
+            "require-dev": {
+                "symfony/var-dumper": "7.2.x-dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ChidoUkaigwe\\Framework\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chido Ukaigwe",
+                    "email": "chidodesigns@gmail.com"
+                }
+            ],
+            "description": "A PHP framework tutorial project",
+            "transport-options": {
+                "relative": true
+            }
+        },
         {
             "name": "nikic/fast-route",
             "version": "dev-master",
@@ -292,12 +326,12 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "nikic/fast-route": 20,
+        "chido-ukaigwe/php-framework-pro": 20,
         "symfony/var-dumper": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
