@@ -7,17 +7,15 @@ use ChidoUkaigwe\Framework\Routing\Router;
 
 define('BASE_PATH', dirname(__DIR__));
 
-require_once dirname(__DIR__) . '/vendor/autoload.php';
+require_once BASE_PATH . '/vendor/autoload.php';
 
 $container = require BASE_PATH . '/config/services.php';
 
 //  Request Recieved 
 $request = Request::createFromGlobals();
 
-$router = new Router();
-
 //  Perform some logic
-$kernel = new Kernel($router);
+$kernel = $container->get(Kernel::class);
 
 //  send response (string of content)
 $response = $kernel->handle($request);
