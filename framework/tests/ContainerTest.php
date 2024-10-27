@@ -45,4 +45,16 @@ class ContainerTest extends TestCase
         $container->add('foobar');
     }
 
+       /** @test */
+       public function test_services_can_be_recursively_autowired()
+       {
+        $container = new Container();
+        
+        $dependentService = $container->get(DependentClass::class);
+        $dependencyService = $dependentService->getDependency();
+
+        $this->assertInstanceOf(DependencyClass::class, $dependentService->getDependency());
+        $this->assertInstanceOf(SubDependencyClass::class, $dependencyService->getSubDependency());
+       }
+
 }
