@@ -9,6 +9,8 @@ define('BASE_PATH', dirname(__DIR__));
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+$container = require BASE_PATH . '/config/services.php';
+
 //  Request Recieved 
 $request = Request::createFromGlobals();
 

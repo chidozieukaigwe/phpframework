@@ -5,11 +5,12 @@ namespace ChidoUkaigwe\Framework\Http;
 use ChidoUkaigwe\Framework\Http\Exception\HttpException;
 use ChidoUkaigwe\Framework\Http\Exception\HttpRequestMethodException;
 use ChidoUkaigwe\Framework\Routing\Router;
+use ChidoUkaigwe\Framework\Routing\RouterInterface;
 
 class Kernel 
 {
     public function __construct(
-        private Router $router
+        private RouterInterface $router
     )
     {}
 
