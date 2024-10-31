@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+
+// set a base path 
+
+use ChidoUkaigwe\Framework\Console\Kernel;
+
+define('BASE_PATH', dirname(__DIR__));
+// requirre autoloading 
+require_once BASE_PATH . '/vendor/autoload.php';
+// require the container 
+$container = require BASE_PATH . '/config/services.php';
+// get the console kernel from the container
+$kernel = $container->get(Kernel::class);
+// Call a handle method on the kernel, return the console application status 
+$status = $kernel->handle();
+// get theexit with that status 
+exit($status);
