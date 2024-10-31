@@ -4,11 +4,12 @@ namespace App\Controller;
 
 use App\Widget;
 use ChidoUkaigwe\Framework\Http\Response;
+use Twig\Environment;
 
 class HomeController
 {
     public function __construct(
-        private Widget $widget
+        private Widget $widget,
     )
     {
         
@@ -17,6 +18,7 @@ class HomeController
     public function index(): Response
     {
         $content = "<h1>Hello {$this->widget->name}</h1>";
+
 
         return new Response($content);
     }
