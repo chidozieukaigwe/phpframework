@@ -8,6 +8,7 @@ use ChidoUkaigwe\Framework\Routing\Router;
 use ChidoUkaigwe\Framework\Routing\RouterInterface;
 use ChidoUkaigwe\Framework\Http\Exception\HttpException;
 use ChidoUkaigwe\Framework\Http\Exception\HttpRequestMethodException;
+use Doctrine\DBAL\Connection;
 use Psr\Container\ContainerInterface;
 
 class Kernel 
@@ -24,6 +25,7 @@ class Kernel
 
     public function handle(Request $request): Response
     {
+
         try {
             [$routeHandler, $vars] = $this->router->dispatch($request, $this->container);
             $response = call_user_func_array($routeHandler, $vars);

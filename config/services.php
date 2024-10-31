@@ -1,9 +1,11 @@
 <?php
 
 use ChidoUkaigwe\Framework\Controller\AbstractController;
+use ChidoUkaigwe\Framework\Dbal\ConnectionFactory;
 use ChidoUkaigwe\Framework\Http\Kernel;
 use ChidoUkaigwe\Framework\Routing\Router;
 use ChidoUkaigwe\Framework\Routing\RouterInterface;
+use Doctrine\DBAL\Connection;
 use League\Container\Argument\Literal\ArrayArgument;
 use League\Container\Argument\Literal\StringArgument;
 use League\Container\Container;
@@ -24,6 +26,7 @@ $appEnv = $_SERVER['APP_ENV'];
 $templatesPath = BASE_PATH . '/templates';
 
 $container->add("APP_ENV", new StringArgument($appEnv));
+$databaseUrl = 'sqlite:///'. BASE_PATH . '/var/db.sqlite';
 
 //  services
 
@@ -46,5 +49,15 @@ $container->add(AbstractController::class);
 
 $container->inflector(AbstractController::class)
          ->invokeMethod('setContainer', [$container]);
+
+$container->add(ConnectionFactory::class)
+    ->addArguments([
+        new StringArgument($databaseUrl),
+    ]);
+
+$container->addShared(Connection::class, function () use ($container):Connection 
+{
+    return $container->get(ConnectionFactory::class)->create();
+});
 
 return $container;
