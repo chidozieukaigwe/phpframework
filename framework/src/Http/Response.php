@@ -2,7 +2,7 @@
 
 namespace ChidoUkaigwe\Framework\Http;
 
-class Response 
+class Response
 {
 
     public const HTTP_INTERNAL_SERVER_ERROR = 500;
@@ -11,8 +11,7 @@ class Response
         private ?string $content = '',
         private int $status = 200,
         private array $headers = []
-    )
-    {
+    ) {
         // must be set before sending content
         //  so best to create an instantiation like here
         http_response_code($this->status);
@@ -21,5 +20,12 @@ class Response
     public function send(): void
     {
         echo $this->content;
+    }
+
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        // return $this;
     }
 }

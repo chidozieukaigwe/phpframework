@@ -3,10 +3,11 @@
 namespace App\Controller;
 
 use App\Widget;
+use ChidoUkaigwe\Framework\Controller\AbstractController;
 use ChidoUkaigwe\Framework\Http\Response;
-use Twig\Environment;
 
-class HomeController
+
+class HomeController extends AbstractController
 {
     public function __construct(
         private Widget $widget,
@@ -17,9 +18,6 @@ class HomeController
 
     public function index(): Response
     {
-        $content = "<h1>Hello {$this->widget->name}</h1>";
-
-
-        return new Response($content);
+       return $this->render('home.html.twig');
     }
 }

@@ -2,14 +2,18 @@
 
 namespace App\Controller;
 
+use ChidoUkaigwe\Framework\Controller\AbstractController;
 use ChidoUkaigwe\Framework\Http\Response;
 
-class PostsController
+class PostsController extends AbstractController
 {
     public function show(int $id): Response
     {
-        $content = "This is post $id";
+       return $this->render('post.html.twig', ['postId' => $id]);
+    }
 
-        return new Response($content);
+    public function create(): Response
+    {
+        return $this->render('create-post.html.twig');
     }
 }

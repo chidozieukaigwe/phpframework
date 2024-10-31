@@ -1,5 +1,6 @@
 <?php
 
+use ChidoUkaigwe\Framework\Controller\AbstractController;
 use ChidoUkaigwe\Framework\Http\Kernel;
 use ChidoUkaigwe\Framework\Routing\Router;
 use ChidoUkaigwe\Framework\Routing\RouterInterface;
@@ -38,7 +39,12 @@ $container->add(Kernel::class)
 $container->addShared('filesystem-loader',\Twig\Loader\FilesystemLoader::class)
           ->addArgument(new StringArgument($templatesPath));
 
-$container->addShared(\Twig\Environment::class)
+$container->addShared('twig',\Twig\Environment::class)
         ->addArgument('filesystem-loader');
-        
+
+$container->add(AbstractController::class);
+
+$container->inflector(AbstractController::class)
+         ->invokeMethod('setContainer', [$container]);
+
 return $container;
