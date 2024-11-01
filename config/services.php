@@ -1,5 +1,8 @@
 <?php
 
+use ChidoUkaigwe\Framework\Console\Application;
+use ChidoUkaigwe\Framework\Console\Command\MigrateDatabase;
+use ChidoUkaigwe\Framework\Console\Kernel as ConsoleKernel;
 use ChidoUkaigwe\Framework\Controller\AbstractController;
 use ChidoUkaigwe\Framework\Dbal\ConnectionFactory;
 use ChidoUkaigwe\Framework\Http\Kernel;
@@ -28,6 +31,8 @@ $templatesPath = BASE_PATH . '/templates';
 $container->add("APP_ENV", new StringArgument($appEnv));
 $databaseUrl = 'sqlite:///'. BASE_PATH . '/var/db.sqlite';
 
+$container->add('base-commands-namespace', new StringArgument('ChidoUkaigwe\\Framework\\Console\\Command\\'));
+
 //  services
 
 $container->add(RouterInterface::class, Router::class);
@@ -38,6 +43,11 @@ $container->extend(RouterInterface::class)
 $container->add(Kernel::class)
           ->addArgument($container)
           ->addArgument(RouterInterface::class);
+$container->add(ConsoleKernel::class)
+          ->addArguments([$container, Application::class]);
+
+$container->add(Application::class)
+          ->addArgument($container);
 
 $container->addShared('filesystem-loader',\Twig\Loader\FilesystemLoader::class)
           ->addArgument(new StringArgument($templatesPath));
@@ -59,5 +69,9 @@ $container->addShared(Connection::class, function () use ($container):Connection
 {
     return $container->get(ConnectionFactory::class)->create();
 });
+
+$container->add('database:migrations:migrate', MigrateDatabase::class)
+            ->addArgument(Connection::class);
+
 
 return $container;
