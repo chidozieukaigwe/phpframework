@@ -71,7 +71,10 @@ $container->addShared(Connection::class, function () use ($container):Connection
 });
 
 $container->add('database:migrations:migrate', MigrateDatabase::class)
-            ->addArgument(Connection::class);
+            ->addArguments([
+                Connection::class,
+                new StringArgument(BASE_PATH. '/migrations'),
+            ]);
 
 
 return $container;
