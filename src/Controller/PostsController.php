@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
 use ChidoUkaigwe\Framework\Controller\AbstractController;
 use ChidoUkaigwe\Framework\Http\Response;
 
@@ -19,6 +20,13 @@ class PostsController extends AbstractController
 
     public function store(): void
     {
-        dd($this->request->postParams);
-    }
+        $title = $this->request->postParams['title'];
+        $body = $this->request->postParams['body'];
+
+        $post = Post::create($title, $body);
+
+        $this->postMapper->save($post);
+
+        dd($post);
+    }   
 }
