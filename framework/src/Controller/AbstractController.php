@@ -27,10 +27,9 @@ abstract class AbstractController
     return $response;
    }
 
-    public function setRequest($request)
+    public function setRequest(Request $request): void
     {
         $this->request = $request;
 
-        return $this;
     }
 }

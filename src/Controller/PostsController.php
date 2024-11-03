@@ -3,14 +3,26 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Repository\PostMapper;
+use App\Repository\PostRepository;
 use ChidoUkaigwe\Framework\Controller\AbstractController;
 use ChidoUkaigwe\Framework\Http\Response;
 
 class PostsController extends AbstractController
 {
+    public function __construct(
+        private PostMapper $postMapper,
+        private PostRepository $postRepository,
+        )
+    {
+
+    }
+
     public function show(int $id): Response
     {
-       return $this->render('post.html.twig', ['postId' => $id]);
+        $post = $this->postRepository->findOrFail($id);
+
+       return $this->render('post.html.twig', ['post' => $post]);
     }
 
     public function create(): Response
@@ -27,6 +39,5 @@ class PostsController extends AbstractController
 
         $this->postMapper->save($post);
 
-        dd($post);
     }   
 }
