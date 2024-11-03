@@ -2,6 +2,7 @@
 
 namespace ChidoUkaigwe\Framework\Routing;
 
+use ChidoUkaigwe\Framework\Controller\AbstractController;
 use ChidoUkaigwe\Framework\Http\Exception\HttpException;
 use ChidoUkaigwe\Framework\Http\Exception\HttpRequestMethodException;
 use ChidoUkaigwe\Framework\Http\Request;
@@ -25,8 +26,13 @@ class Router implements RouterInterface
         if (is_array($handler)) {
             [$controllerId, $method] = $handler;
             $controller = $container->get($controllerId);
+            if (is_subclass_of($controller, AbstractController::class)) {
+                $controller->setRequest($request);
+            }
             $handler = [$controller, $method];
         }
+
+        // $vars['request'] = $request;
 
         return [$handler, $vars];
         
