@@ -8,6 +8,7 @@ use ChidoUkaigwe\Framework\Routing\Router;
 use ChidoUkaigwe\Framework\Routing\RouterInterface;
 use ChidoUkaigwe\Framework\Http\Exception\HttpException;
 use ChidoUkaigwe\Framework\Http\Exception\HttpRequestMethodException;
+use ChidoUkaigwe\Framework\Http\Middleware\RequestHandlerInterface;
 use Doctrine\DBAL\Connection;
 use Psr\Container\ContainerInterface;
 
@@ -17,7 +18,8 @@ class Kernel
 
     public function __construct(
         private ContainerInterface $container,
-        private RouterInterface $router
+        private RouterInterface $router,
+        private RequestHandlerInterface $requestHandler,
     )
     {
         $this->appEnv = $this->container->get("APP_ENV");
@@ -27,8 +29,10 @@ class Kernel
     {
 
         try {
-            [$routeHandler, $vars] = $this->router->dispatch($request, $this->container);
-            $response = call_user_func_array($routeHandler, $vars);
+            $response = $this->requestHandler->handle($request);
+
+            // [$routeHandler, $vars] = $this->router->dispatch($request, $this->container);
+            // $response = call_user_func_array($routeHandler, $vars);
         }catch (\Exception $exception) {
             $response = $this->createExceptionResponse($exception);
         }

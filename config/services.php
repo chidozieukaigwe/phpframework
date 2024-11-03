@@ -6,6 +6,8 @@ use ChidoUkaigwe\Framework\Console\Kernel as ConsoleKernel;
 use ChidoUkaigwe\Framework\Controller\AbstractController;
 use ChidoUkaigwe\Framework\Dbal\ConnectionFactory;
 use ChidoUkaigwe\Framework\Http\Kernel;
+use ChidoUkaigwe\Framework\Http\Middleware\RequestHandler;
+use ChidoUkaigwe\Framework\Http\Middleware\RequestHandlerInterface;
 use ChidoUkaigwe\Framework\Routing\Router;
 use ChidoUkaigwe\Framework\Routing\RouterInterface;
 use ChidoUkaigwe\Framework\Session\SessionInterface;
@@ -42,9 +44,16 @@ $container->add(RouterInterface::class, Router::class);
 $container->extend(RouterInterface::class)
          ->addMethodCall('setRoutes', [new ArrayArgument($routes)]);
 
+$container->add(RequestHandlerInterface::class, RequestHandler::class);
+
 $container->add(Kernel::class)
-          ->addArgument($container)
-          ->addArgument(RouterInterface::class);
+          ->addArguments([
+            $container,
+            RouterInterface::class,
+            RequestHandlerInterface::class
+          ]);
+     
+
 $container->add(ConsoleKernel::class)
           ->addArguments([$container, Application::class]);
 

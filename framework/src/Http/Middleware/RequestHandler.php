@@ -22,7 +22,7 @@ class RequestHandler implements RequestHandlerInterface
         // Get the next middlware class to execute
         $middlewareClass = array_shift($this->middleware);
         // Create a new instance of the middlware call process on it
-        $response = (new middlewareClass())->process($request, $this);
+        $response = (new $middlewareClass())->process($request, $this);
 
         return $response;
     }
