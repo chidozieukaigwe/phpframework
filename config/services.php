@@ -8,6 +8,8 @@ use ChidoUkaigwe\Framework\Dbal\ConnectionFactory;
 use ChidoUkaigwe\Framework\Http\Kernel;
 use ChidoUkaigwe\Framework\Routing\Router;
 use ChidoUkaigwe\Framework\Routing\RouterInterface;
+use ChidoUkaigwe\Framework\Session\SessionInterface;
+use ChidoUkaigwe\Framework\Template\TwigFactory;
 use Doctrine\DBAL\Connection;
 use League\Container\Argument\Literal\ArrayArgument;
 use League\Container\Argument\Literal\StringArgument;
@@ -49,11 +51,17 @@ $container->add(ConsoleKernel::class)
 $container->add(Application::class)
           ->addArgument($container);
 
-$container->addShared('filesystem-loader',\Twig\Loader\FilesystemLoader::class)
-          ->addArgument(new StringArgument($templatesPath));
+$container->addShared(SessionInterface::class, \ChidoUkaigwe\Framework\Session\Session::class);
 
-$container->addShared('twig',\Twig\Environment::class)
-        ->addArgument('filesystem-loader');
+$container->add('template-renderer-factory', TwigFactory::class)
+    ->addArguments([
+        SessionInterface::class,
+        new StringArgument($templatesPath),
+    ]);
+
+$container->addShared('twig', function () use ($container) {
+    return $container->get('template-renderer-factory')->create();
+});
 
 $container->add(AbstractController::class);
 
