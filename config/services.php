@@ -8,6 +8,7 @@ use ChidoUkaigwe\Framework\Dbal\ConnectionFactory;
 use ChidoUkaigwe\Framework\Http\Kernel;
 use ChidoUkaigwe\Framework\Http\Middleware\RequestHandler;
 use ChidoUkaigwe\Framework\Http\Middleware\RequestHandlerInterface;
+use ChidoUkaigwe\Framework\Http\Middleware\RouterDispatch;
 use ChidoUkaigwe\Framework\Routing\Router;
 use ChidoUkaigwe\Framework\Routing\RouterInterface;
 use ChidoUkaigwe\Framework\Session\SessionInterface;
@@ -95,5 +96,10 @@ $container->add('database:migrations:migrate', MigrateDatabase::class)
                 new StringArgument(BASE_PATH. '/migrations'),
             ]);
 
+$container->add(RouterDispatch::class)
+         ->addArguments([
+             RouterInterface::class,
+             $container,
+         ]);
 
 return $container;

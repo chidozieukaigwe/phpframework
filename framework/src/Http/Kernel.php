@@ -31,8 +31,6 @@ class Kernel
         try {
             $response = $this->requestHandler->handle($request);
 
-            // [$routeHandler, $vars] = $this->router->dispatch($request, $this->container);
-            // $response = call_user_func_array($routeHandler, $vars);
         }catch (\Exception $exception) {
             $response = $this->createExceptionResponse($exception);
         }

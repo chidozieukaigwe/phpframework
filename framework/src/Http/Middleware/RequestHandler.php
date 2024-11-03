@@ -8,9 +8,10 @@ use Psr\Container\ContainerInterface;
 class RequestHandler implements RequestHandlerInterface
 {
     private array $middleware = [
+          // Add more middleware classes here as needed
         Authenticate::class,
-        Success::class,
-        // Add more middleware classes here as needed
+        RouterDispatch::class, // This should be last in the middleware stack
+      
     ];
 
     public function __construct(
