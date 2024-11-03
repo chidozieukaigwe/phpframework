@@ -3,6 +3,7 @@ namespace ChidoUkaigwe\Framework\Http\Middleware;
 
 use ChidoUkaigwe\Framework\Http\Request;
 use ChidoUkaigwe\Framework\Http\Response;
+use Psr\Container\ContainerInterface;
 
 class RequestHandler implements RequestHandlerInterface
 {
@@ -11,6 +12,14 @@ class RequestHandler implements RequestHandlerInterface
         Success::class,
         // Add more middleware classes here as needed
     ];
+
+    public function __construct(
+        private ContainerInterface $container,
+        
+    )
+    {
+
+    }
 
     public function handle(Request $request): Response
     {
@@ -21,8 +30,10 @@ class RequestHandler implements RequestHandlerInterface
         }
         // Get the next middlware class to execute
         $middlewareClass = array_shift($this->middleware);
+
+        $middleware = $this->container->get($middlewareClass);
         // Create a new instance of the middlware call process on it
-        $response = (new $middlewareClass())->process($request, $this);
+        $response = $middleware->process($request, $this);
 
         return $response;
     }
