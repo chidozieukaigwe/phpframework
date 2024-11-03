@@ -34,6 +34,15 @@
   </div>
 </nav>
 <main class="container">
+  {% if session().hasFlash('success') %}
+    <div class="alert alert-success" role="alert">
+      <ul style="list-style: none">
+        {% for message in session().getFlash('success') %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
     <div class="bg-light p-5 rounded my-3">
     {% block main %}
     {% endblock %}

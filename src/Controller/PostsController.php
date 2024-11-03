@@ -8,12 +8,14 @@ use App\Repository\PostRepository;
 use ChidoUkaigwe\Framework\Controller\AbstractController;
 use ChidoUkaigwe\Framework\Http\RedirectResponse;
 use ChidoUkaigwe\Framework\Http\Response;
+use ChidoUkaigwe\Framework\Session\SessionInterface;
 
 class PostsController extends AbstractController
 {
     public function __construct(
         private PostMapper $postMapper,
         private PostRepository $postRepository,
+        private SessionInterface $session
         )
     {
 
@@ -39,6 +41,8 @@ class PostsController extends AbstractController
         $post = Post::create($title, $body);
 
         $this->postMapper->save($post);
+
+        $this->session->setFlash('success', sprintf('Post "%s" created successfully', $title));
 
        return new RedirectResponse('/posts');
 
