@@ -9,6 +9,7 @@ class RequestHandler implements RequestHandlerInterface
 {
     private array $middleware = [
           // Add more middleware classes here as needed
+        StartSession::class,
         Authenticate::class,
         RouterDispatch::class, // This should be last in the middleware stack
       
