@@ -48,4 +48,9 @@ class Request
 
         return $this;
     }
+
+    public function input($key): mixed 
+    {
+        return $this->postParams[$key];
+    }
 }
