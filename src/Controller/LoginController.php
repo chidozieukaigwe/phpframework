@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use ChidoUkaigwe\Framework\Authentication\SessionAuthentication;
 use ChidoUkaigwe\Framework\Controller\AbstractController;
+use ChidoUkaigwe\Framework\Http\RedirectResponse;
 use ChidoUkaigwe\Framework\Http\Response;
 
 class LoginController extends AbstractController
@@ -28,11 +29,16 @@ class LoginController extends AbstractController
         );
 
         // if successful, retrieve the user
-        if ($userIsAuthenticated) {
-            $user = $this->authComponent->getUser();
-            dd($user);
+        if (!$userIsAuthenticated) {
+            $this->request->getSession()->setFlash('error', 'Invalid username or password');
+            return new RedirectResponse('/login');
         }
+        $user = $this->authComponent->getUser();
 
-        // redirect the user to intended location
+        $this->request->getSession()->setFlash('success', 'You are now logged in');
+
+         // redirect the user to intended location
+
+         return new RedirectResponse('/dashboard');
     }
 }

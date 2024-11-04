@@ -1,5 +1,6 @@
 <?php
 
+use App\Controller\DashboardController;
 use App\Controller\HomeController;
 use App\Controller\LoginController;
 use App\Controller\PostsController;
@@ -16,6 +17,7 @@ return [
     ['POST', '/register', [RegistrationController::class, 'register']],
     ['GET', '/login', [LoginController::class, 'index']],
     ['POST', '/login', [LoginController::class, 'login']],
+    ['GET', '/dashboard', [DashboardController::class, 'index']],
     ['GET', '/hello/{name:.+}', function (string $name) {
         return new Response("Hello $name");
     }],
