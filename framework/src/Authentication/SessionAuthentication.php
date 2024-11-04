@@ -5,10 +5,23 @@ class SessionAuthentication implements SessionAuthInterface
 {
     public function authenticate(string $username, string $password): bool
     {
+
         // query db for user using username 
         $user = $this->authUserRepository->findByUsername(['username' => $username]);
-        //  Does the hashed user pw match the has of the attempted password
 
+        if(!$user){
+            return false;
+        }
+
+        //  Does the hashed user pw match the has of the attempted password
+        if (password_verify($password, $user->getPassword())) {
+            // if yes log the user in 
+            $this->login($user);
+          
+            return true;
+        }
+
+        return false;
             // if yes log the user in 
 
             //  return true
