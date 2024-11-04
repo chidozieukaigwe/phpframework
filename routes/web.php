@@ -5,6 +5,8 @@ use App\Controller\HomeController;
 use App\Controller\LoginController;
 use App\Controller\PostsController;
 use App\Controller\RegistrationController;
+use ChidoUkaigwe\Framework\Http\Middleware\Authenticate;
+use ChidoUkaigwe\Framework\Http\Middleware\Dummy;
 use ChidoUkaigwe\Framework\Http\Response;
 
 
@@ -17,7 +19,12 @@ return [
     ['POST', '/register', [RegistrationController::class, 'register']],
     ['GET', '/login', [LoginController::class, 'index']],
     ['POST', '/login', [LoginController::class, 'login']],
-    ['GET', '/dashboard', [DashboardController::class, 'index']],
+    ['GET', '/dashboard', [DashboardController::class, 'index',
+    [
+        Authenticate::class,
+        Dummy::class
+    ]
+    ]],
     ['GET', '/hello/{name:.+}', function (string $name) {
         return new Response("Hello $name");
     }],
