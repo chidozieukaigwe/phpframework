@@ -1,5 +1,7 @@
 <?php
 
+use App\Repository\UserRepository;
+use ChidoUkaigwe\Framework\Authentication\SessionAuthentication;
 use ChidoUkaigwe\Framework\Console\Application;
 use ChidoUkaigwe\Framework\Console\Command\MigrateDatabase;
 use ChidoUkaigwe\Framework\Console\Kernel as ConsoleKernel;
@@ -101,5 +103,8 @@ $container->add(RouterDispatch::class)
              RouterInterface::class,
              $container,
          ]);
+
+$container->add(SessionAuthentication::class)
+         ->addArgument(UserRepository::class);
 
 return $container;
