@@ -2,12 +2,18 @@
 namespace App\Form\User;
 
 use App\Entity\User;
+use App\Repository\UserMapper;
 
 class RegistrationForm
 {
     private string $username;
     private string $password;
-    private array $errors;
+    private array $errors = [];
+
+    public function __construct(private UserMapper $userMapper)
+    {
+        
+    }
 
     public function setFields(string $username, string $password): void
     {
@@ -39,9 +45,9 @@ class RegistrationForm
         }
 
         //  username char type
-        if (preg_match('/^\w+$/', $this->username)) {
-            $this->errors[] = 'Username can only consist of word characters without spaces';
-        }
+        // if (preg_match('/^\w+$/', $this->username)) {
+        //     $this->errors[] = 'Username can only consist of word characters without spaces';
+        // }
 
         //  password length 
         if (strlen($this->password) < 8) {

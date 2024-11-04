@@ -24,4 +24,24 @@ class User
             );
         }
 
+        public function setId($id)
+        {
+                $this->id = $id;
+
+                return $this;
+        }
+
+        public function getUsername()
+        {
+                return $this->username;
+        }
+        public function getPassword()
+        {
+                return $this->password;
+        }
+
+        public function getCreatedAt()
+        {
+                return $this->createdAt;
+        }
 }
