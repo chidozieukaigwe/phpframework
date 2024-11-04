@@ -7,6 +7,7 @@ class SessionAuthentication implements SessionAuthInterface
 {
 
     private AuthUserInterface $user;
+    public const AUTH_KEY = 'auth_id';
 
     public function __construct(
         private AuthRepositoryInterface $authRepository,
@@ -26,22 +27,14 @@ class SessionAuthentication implements SessionAuthInterface
         }
 
         //  Does the hashed user pw match the has of the attempted password
-        if (password_verify($password, $user->getPassword())) {
-           
-            // if yes log the user in 
-            $this->login($user);
-          
-            return true;
+        if (!password_verify($password, $user->getPassword())) { 
+            return false;
         }
 
-        return false;
-            // if yes log the user in 
-
-            //  return true
-
-        // return false
+           // if yes log the user in 
+           $this->login($user);
         
-        return false;
+        return true;
 
     }
 
@@ -61,7 +54,7 @@ class SessionAuthentication implements SessionAuthInterface
         //  start a session 
         $this->session->start();
         //  log user in 
-        $this->session->set('auth_id', $user->getAuthId());
+        $this->session->set( self::AUTH_KEY, $user->getAuthId());
         //  set the user
         $this->user = $user;
     }
