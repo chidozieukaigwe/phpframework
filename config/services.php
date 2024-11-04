@@ -8,6 +8,7 @@ use ChidoUkaigwe\Framework\Console\Kernel as ConsoleKernel;
 use ChidoUkaigwe\Framework\Controller\AbstractController;
 use ChidoUkaigwe\Framework\Dbal\ConnectionFactory;
 use ChidoUkaigwe\Framework\Http\Kernel;
+use ChidoUkaigwe\Framework\Http\Middleware\ExtractRouteInfo;
 use ChidoUkaigwe\Framework\Http\Middleware\RequestHandler;
 use ChidoUkaigwe\Framework\Http\Middleware\RequestHandlerInterface;
 use ChidoUkaigwe\Framework\Http\Middleware\RouterDispatch;
@@ -43,9 +44,6 @@ $container->add('base-commands-namespace', new StringArgument('ChidoUkaigwe\\Fra
 //  services
 
 $container->add(RouterInterface::class, Router::class);
-
-$container->extend(RouterInterface::class)
-         ->addMethodCall('setRoutes', [new ArrayArgument($routes)]);
 
 $container->add(RequestHandlerInterface::class, RequestHandler::class)
     ->addArgument($container);
@@ -110,5 +108,8 @@ $container->add(SessionAuthentication::class)
             SessionInterface::class,
  
         ]);
+
+$container->add(ExtractRouteInfo::class)
+        ->addArgument(new ArrayArgument($routes));
 
 return $container;
