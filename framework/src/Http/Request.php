@@ -8,6 +8,9 @@ class Request
 {
 
     private SessionInterface $session;
+    private mixed $routeHandler;
+    private array $routeHandlerArgs;
+
 
     public function __construct(
         public readonly array $getParams,
@@ -52,5 +55,45 @@ class Request
     public function input($key): mixed 
     {
         return $this->postParams[$key];
+    }
+
+    /**
+     * Get the value of routeHandlerArgs
+     */ 
+    public function getRouteHandlerArgs()
+    {
+        return $this->routeHandlerArgs;
+    }
+
+    /**
+     * Set the value of routeHandlerArgs
+     *
+     * @return  self
+     */ 
+    public function setRouteHandlerArgs($routeHandlerArgs)
+    {
+        $this->routeHandlerArgs = $routeHandlerArgs;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of routeHandler
+     */ 
+    public function getRouteHandler()
+    {
+        return $this->routeHandler;
+    }
+
+    /**
+     * Set the value of routeHandler
+     *
+     * @return  self
+     */ 
+    public function setRouteHandler($routeHandler)
+    {
+        $this->routeHandler = $routeHandler;
+
+        return $this;
     }
 }
