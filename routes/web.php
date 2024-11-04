@@ -1,6 +1,7 @@
 <?php
 
 use App\Controller\HomeController;
+use App\Controller\LoginController;
 use App\Controller\PostsController;
 use App\Controller\RegistrationController;
 use ChidoUkaigwe\Framework\Http\Response;
@@ -13,6 +14,8 @@ return [
     ['POST', '/posts', [PostsController::class, 'store']],
     ['GET', '/register', [RegistrationController::class, 'index']],
     ['POST', '/register', [RegistrationController::class, 'register']],
+    ['GET', '/login', [LoginController::class, 'index']],
+    ['POST', '/login', [LoginController::class, 'login']],
     ['GET', '/hello/{name:.+}', function (string $name) {
         return new Response("Hello $name");
     }],

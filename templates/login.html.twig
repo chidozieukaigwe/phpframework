@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block main %}
 
-<h1>Register</h1>
-<form method="post" action="/register">
+<h1>Login</h1>
+<form method="post" action="/login">
 
     <div class="mb-3">
-        <label for="username" class="form-control" id="username" >Username</label>
+        <label for="username" class="form-label" >Username</label>
         <input name="username" type="text" class="form-control" id="username"  />
     </div>
 
@@ -15,7 +15,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary"> 
-        Submit
+        Login
     </button>
 
 </form>
