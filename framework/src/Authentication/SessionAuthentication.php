@@ -1,10 +1,17 @@
 <?php
 namespace ChidoUkaigwe\Framework\Authentication;
 
+use ChidoUkaigwe\Framework\Session\SessionInterface;
+
 class SessionAuthentication implements SessionAuthInterface
 {
 
-    public function __construct(private AuthRepositoryInterface $authRepository)
+    private AuthUserInterface $user;
+
+    public function __construct(
+        private AuthRepositoryInterface $authRepository,
+        private SessionInterface $session
+        )
     {
 
     }
@@ -20,8 +27,6 @@ class SessionAuthentication implements SessionAuthInterface
 
         //  Does the hashed user pw match the has of the attempted password
         if (password_verify($password, $user->getPassword())) {
-           
-            dd($user);
            
             // if yes log the user in 
             $this->login($user);
@@ -42,6 +47,7 @@ class SessionAuthentication implements SessionAuthInterface
 
     public function getUser(): AuthUserInterface
     {
+        return $this->user;
 
     }
 
@@ -52,6 +58,11 @@ class SessionAuthentication implements SessionAuthInterface
 
     public function login(AuthUserInterface $user): void
     {
-
+        //  start a session 
+        $this->session->start();
+        //  log user in 
+        $this->session->set('auth_id', $user->getAuthId());
+        //  set the user
+        $this->user = $user;
     }
 }

@@ -105,6 +105,10 @@ $container->add(RouterDispatch::class)
          ]);
 
 $container->add(SessionAuthentication::class)
-         ->addArgument(UserRepository::class);
+         ->addArguments([
+            UserRepository::class,
+            SessionInterface::class,
+ 
+        ]);
 
 return $container;
