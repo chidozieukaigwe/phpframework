@@ -2,6 +2,8 @@
 
 namespace ChidoUkaigwe\Framework\Http;
 
+use ChidoUkaigwe\Framework\EventDispatcher\EventDispatcher;
+use ChidoUkaigwe\Framework\Http\Event\ResponseEvent;
 use ChidoUkaigwe\Framework\Http\Request;
 use ChidoUkaigwe\Framework\Http\Response;
 use ChidoUkaigwe\Framework\Routing\Router;
@@ -18,8 +20,8 @@ class Kernel
 
     public function __construct(
         private ContainerInterface $container,
-        private RouterInterface $router,
         private RequestHandlerInterface $requestHandler,
+        private EventDispatcher $eventDispatcher,
     )
     {
         $this->appEnv = $this->container->get("APP_ENV");
@@ -34,6 +36,8 @@ class Kernel
         }catch (\Exception $exception) {
             $response = $this->createExceptionResponse($exception);
         }
+
+        $this->eventDispatcher->dispatch(new ResponseEvent($request, $response));
 
         return $response;
        
