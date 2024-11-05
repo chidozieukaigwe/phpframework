@@ -25,6 +25,9 @@ return [
         Guest::class
     ]]],
     ['POST', '/login', [LoginController::class, 'login']],
+    ['GET', '/logout', [LoginController::class, 'logout', [
+        Authenticate::class,
+    ]]],
     ['GET', '/dashboard', [DashboardController::class, 'index',
     [
         Authenticate::class,

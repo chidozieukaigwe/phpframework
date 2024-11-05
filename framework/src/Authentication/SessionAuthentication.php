@@ -1,14 +1,14 @@
 <?php
 namespace ChidoUkaigwe\Framework\Authentication;
 
+use ChidoUkaigwe\Framework\Session\Session;
 use ChidoUkaigwe\Framework\Session\SessionInterface;
 
 class SessionAuthentication implements SessionAuthInterface
 {
 
     private AuthUserInterface $user;
-    public const AUTH_KEY = 'auth_id';
-
+  
     public function __construct(
         private AuthRepositoryInterface $authRepository,
         private SessionInterface $session
@@ -54,7 +54,7 @@ class SessionAuthentication implements SessionAuthInterface
         //  start a session 
         $this->session->start();
         //  log user in 
-        $this->session->set( self::AUTH_KEY, $user->getAuthId());
+        $this->session->set( Session::AUTH_KEY, $user->getAuthId());
         //  set the user
         $this->user = $user;
     }

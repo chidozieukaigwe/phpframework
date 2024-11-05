@@ -5,6 +5,7 @@ use ChidoUkaigwe\Framework\Authentication\SessionAuthentication;
 use ChidoUkaigwe\Framework\Http\RedirectResponse;
 use ChidoUkaigwe\Framework\Http\Request;
 use ChidoUkaigwe\Framework\Http\Response;
+use ChidoUkaigwe\Framework\Session\Session;
 use ChidoUkaigwe\Framework\Session\SessionInterface;
 
 class Authenticate implements MiddlewareInterface
@@ -19,7 +20,7 @@ class Authenticate implements MiddlewareInterface
 
         $this->session->start();
       
-        if (!$this->session->has(SessionAuthentication::AUTH_KEY)) {
+        if (!$this->session->has(Session::AUTH_KEY)) {
             $this->session->setFlash('error', 'Please signin');
             return new RedirectResponse('/login');
         }
