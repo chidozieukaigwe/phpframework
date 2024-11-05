@@ -51,6 +51,6 @@ class Response
 
     public function getContent(): ?string
     {
-        return $this->content
+        return $this->content;
     }
 }
