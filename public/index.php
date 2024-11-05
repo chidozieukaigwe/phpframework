@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use App\EventListener\ContentLengthListener;
+use App\EventListener\InternalErrorListener;
 use ChidoUkaigwe\Framework\EventDispatcher\EventDispatcher;
 use ChidoUkaigwe\Framework\Http\Event\ResponseEvent;
 use ChidoUkaigwe\Framework\Http\Kernel;
@@ -14,9 +15,11 @@ $container = require BASE_PATH . '/config/services.php';
 
 $eventDispatcher = $container->get(EventDispatcher::class);
 
-// index.php cannot find ContentLengthListener - commented out to continue with code
-
 $eventDispatcher->addListener(
+    ResponseEvent::class,
+    new InternalErrorListener()
+)
+->addListener(
     ResponseEvent::class,
     new ContentLengthListener()
 );

@@ -39,7 +39,7 @@ class Response
         return $this->headers[$header];
     }
 
-    public function getheaders(): array 
+    public function getheaders(): array
     {
         return $this->headers;
     }
@@ -52,5 +52,17 @@ class Response
     public function getContent(): ?string
     {
         return $this->content;
+    }
+
+    /**
+     * Set the value of status
+     *
+     * @return  self
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
     }
 }

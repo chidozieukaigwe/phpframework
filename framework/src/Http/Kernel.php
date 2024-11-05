@@ -37,6 +37,8 @@ class Kernel
             $response = $this->createExceptionResponse($exception);
         }
 
+        $response->setStatus(502);
+
         $this->eventDispatcher->dispatch(new ResponseEvent($response, $request));
 
         return $response;
