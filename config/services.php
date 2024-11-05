@@ -7,6 +7,7 @@ use ChidoUkaigwe\Framework\Console\Command\MigrateDatabase;
 use ChidoUkaigwe\Framework\Console\Kernel as ConsoleKernel;
 use ChidoUkaigwe\Framework\Controller\AbstractController;
 use ChidoUkaigwe\Framework\Dbal\ConnectionFactory;
+use ChidoUkaigwe\Framework\EventDispatcher\EventDispatcher;
 use ChidoUkaigwe\Framework\Http\Kernel;
 use ChidoUkaigwe\Framework\Http\Middleware\ExtractRouteInfo;
 use ChidoUkaigwe\Framework\Http\Middleware\RequestHandler;
@@ -52,8 +53,8 @@ $container->add(RequestHandlerInterface::class, RequestHandler::class)
 $container->add(Kernel::class)
           ->addArguments([
             $container,
-            RouterInterface::class,
-            RequestHandlerInterface::class
+            RequestHandlerInterface::class,
+            EventDispatcher::class,
           ]);
      
 
