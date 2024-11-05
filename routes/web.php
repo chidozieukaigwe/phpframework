@@ -7,6 +7,7 @@ use App\Controller\PostsController;
 use App\Controller\RegistrationController;
 use ChidoUkaigwe\Framework\Http\Middleware\Authenticate;
 use ChidoUkaigwe\Framework\Http\Middleware\Dummy;
+use ChidoUkaigwe\Framework\Http\Middleware\Guest;
 use ChidoUkaigwe\Framework\Http\Response;
 
 
@@ -15,9 +16,14 @@ return [
     ['GET', '/posts/{id:\d+}', [PostsController::class, 'show']],
     ['GET', '/posts', [PostsController::class, 'create']],
     ['POST', '/posts', [PostsController::class, 'store']],
-    ['GET', '/register', [RegistrationController::class, 'index']],
+    ['GET', '/register', [RegistrationController::class, 'index',
+    [
+        Guest::class
+    ]]],
     ['POST', '/register', [RegistrationController::class, 'register']],
-    ['GET', '/login', [LoginController::class, 'index']],
+    ['GET', '/login', [LoginController::class, 'index', [
+        Guest::class
+    ]]],
     ['POST', '/login', [LoginController::class, 'login']],
     ['GET', '/dashboard', [DashboardController::class, 'index',
     [

@@ -3,13 +3,14 @@ namespace App\Controller;
 
 use App\Form\User\RegistrationForm;
 use App\Repository\UserMapper;
+use ChidoUkaigwe\Framework\Authentication\SessionAuthentication;
 use ChidoUkaigwe\Framework\Controller\AbstractController;
 use ChidoUkaigwe\Framework\Http\RedirectResponse;
 use ChidoUkaigwe\Framework\Http\Response;
 
 class RegistrationController extends AbstractController
 {
-    public function __construct(private UserMapper $userMapper)
+    public function __construct(private UserMapper $userMapper, private SessionAuthentication $authComponent)
     {
         
     }
@@ -46,9 +47,9 @@ class RegistrationController extends AbstractController
         //  Add a session success message
         $this->request->getSession()->setFlash('success', sprintf('User %s created', $user->getUsername()));
         // log user in
-
+        $this->authComponent->login($user);
         // Redirect to somewhere useful
-        return new RedirectResponse('/');
+        return new RedirectResponse('/dashboard');
 
     }
 }
