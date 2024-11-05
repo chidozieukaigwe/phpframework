@@ -12,13 +12,14 @@
             "dist": {
                 "type": "path",
                 "url": "framework",
-                "reference": "0d75cfef63cfb78d897c0b4d43f5bf1d67905c78"
+                "reference": "8f3cdb096a05f354bea752e4d522be08a40e0aa6"
             },
             "require": {
                 "doctrine/dbal": "^3.6",
                 "league/container": "^4.0.0",
                 "nikic/fast-route": "2.0.x-dev",
                 "psr/container": "^2.0@dev",
+                "psr/event-dispatcher": "^1.0",
                 "symfony/dotenv": "^6.0",
                 "twig/twig": "^3.0"
             },
@@ -151,12 +152,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "19a5a350a81e56802ae13a225c350d5cada9655a"
+                "reference": "bb23c9df4aafa9485d50d8691eaa1c6606eea2e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/19a5a350a81e56802ae13a225c350d5cada9655a",
-                "reference": "19a5a350a81e56802ae13a225c350d5cada9655a",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/bb23c9df4aafa9485d50d8691eaa1c6606eea2e2",
+                "reference": "bb23c9df4aafa9485d50d8691eaa1c6606eea2e2",
                 "shasum": ""
             },
             "require": {
@@ -240,7 +241,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/3.9.x"
+                "source": "https://github.com/doctrine/dbal/tree/3.10.x"
             },
             "funding": [
                 {
@@ -256,7 +257,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-25T12:55:56+00:00"
+            "time": "2024-11-04T19:34:16+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -652,6 +653,59 @@
                 "source": "https://github.com/php-fig/container"
             },
             "time": "2023-09-22T11:11:30+00:00"
+        },
+        {
+            "name": "psr/event-dispatcher",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/event-dispatcher.git",
+                "reference": "bbd9eacc080d33861e5b5c75b3b8c4d7e6d01874"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/event-dispatcher/zipball/bbd9eacc080d33861e5b5c75b3b8c4d7e6d01874",
+                "reference": "bbd9eacc080d33861e5b5c75b3b8c4d7e6d01874",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0"
+            },
+            "suggest": {
+                "fig/event-dispatcher-util": "Provides some useful PSR-14 utilities"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\EventDispatcher\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Standard interfaces for event handling.",
+            "keywords": [
+                "events",
+                "psr",
+                "psr-14"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/event-dispatcher"
+            },
+            "time": "2024-03-17T21:29:03+00:00"
         },
         {
             "name": "psr/log",
@@ -1142,12 +1196,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "75751250cc8b6efd53495dfbdd50a4d424c75caa"
+                "reference": "98e7f7141a8da641b0d58843de01417d48e47971"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/75751250cc8b6efd53495dfbdd50a4d424c75caa",
-                "reference": "75751250cc8b6efd53495dfbdd50a4d424c75caa",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/98e7f7141a8da641b0d58843de01417d48e47971",
+                "reference": "98e7f7141a8da641b0d58843de01417d48e47971",
                 "shasum": ""
             },
             "require": {
@@ -1214,7 +1268,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-30T12:17:12+00:00"
+            "time": "2024-11-04T07:50:22+00:00"
         }
     ],
     "packages-dev": [

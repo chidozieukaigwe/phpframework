@@ -49,6 +49,7 @@ $container->add(RouterInterface::class, Router::class);
 $container->add(RequestHandlerInterface::class, RequestHandler::class)
     ->addArgument($container);
 
+$container->addShared(EventDispatcher::class); 
 
 $container->add(Kernel::class)
           ->addArguments([
