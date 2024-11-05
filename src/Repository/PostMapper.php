@@ -2,18 +2,19 @@
 namespace App\Repository;
 
 use App\Entity\Post;
+use ChidoUkaigwe\Framework\Dbal\DataMapper;
 use Doctrine\DBAL\Connection;
 
 class PostMapper
 {
-    public function __construct(private Connection $connection)
+    public function __construct(private DataMapper $dataMapper)
     {
 
     }
 
     public function save(Post $post): void
     {
-        $stmt = $this->connection->prepare("INSERT INTO posts (title, body, created_at)VALUES (:title, :body, :created_at)");
+        $stmt = $this->dataMapper->getConnection()->prepare("INSERT INTO posts (title, body, created_at)VALUES (:title, :body, :created_at)");
 
         $stmt->bindValue(':title', $post->getTitle());
         $stmt->bindValue(':body', $post->getBody());
@@ -21,7 +22,7 @@ class PostMapper
 
         $stmt->executeStatement();
 
-        $id = $this->connection->lastInsertId();
+        $id = $this->dataMapper->save($post);
 
         $post->setId($id);
     }

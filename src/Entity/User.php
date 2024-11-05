@@ -2,8 +2,9 @@
 namespace App\Entity;
 
 use ChidoUkaigwe\Framework\Authentication\AuthUserInterface;
+use ChidoUkaigwe\Framework\Dbal\Entity;
 
-class User implements AuthUserInterface
+class User extends Entity implements AuthUserInterface
 {
 
     public function __construct(
