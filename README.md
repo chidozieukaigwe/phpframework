@@ -1,0 +1,1 @@
+The core framework sits in the framework folder. The application that consumes the framework sits in the src folder at the root level.
