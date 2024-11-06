@@ -6,6 +6,7 @@ class Response
 {
 
     public const HTTP_INTERNAL_SERVER_ERROR = 500;
+    public const HTTP_FORBIDDEN = 403;
 
     public function __construct(
         private ?string $content = '',
@@ -19,7 +20,17 @@ class Response
 
     public function send(): void
     {
+        //  start output buffering
+        ob_start();
+        //  send headers
+        foreach($this->headers as $key => $value) {
+            header("$key: $value"); // Content-Length 2342
+        }
+        //  This will actually add the content to the buffer
         echo $this->content;
+
+        //  Flush the buffer, sending the content to the client
+        ob_end_flush();
     }
 
     public function setContent($content)
