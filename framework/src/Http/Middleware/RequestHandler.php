@@ -11,6 +11,7 @@ class RequestHandler implements RequestHandlerInterface
           // Add more middleware classes here as needed
         ExtractRouteInfo::class,
         StartSession::class,
+        VerifyCsrfToken::class,
         RouterDispatch::class, // This should be last in the middleware stack
       
     ];
@@ -32,9 +33,9 @@ class RequestHandler implements RequestHandlerInterface
         }
         // Get the next middlware class to execute
         $middlewareClass = array_shift($this->middleware);
-
-        $middleware = $this->container->get($middlewareClass);
         // Create a new instance of the middlware call process on it
+        $middleware = $this->container->get($middlewareClass);
+  
         $response = $middleware->process($request, $this);
 
         return $response;

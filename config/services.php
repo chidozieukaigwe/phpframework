@@ -25,20 +25,21 @@ use League\Container\ReflectionContainer;
 use Symfony\Component\Dotenv\Dotenv;
 
 $dotenv = new Dotenv();
-$dotenv->load(BASE_PATH . '/.env');
+$dotenv->load(dirname(__DIR__) . '/.env');
 
 $container = new Container();
 
 $container->delegate(new ReflectionContainer(true));
 
 //  parameters for application config 
-
-$routes = include BASE_PATH . '/routes/web.php';
+$basePath = dirname(__DIR__);
+$container->add('base-path', new StringArgument($basePath));
+$routes = include $basePath . '/routes/web.php';
 $appEnv = $_SERVER['APP_ENV'];
-$templatesPath = BASE_PATH . '/templates';
+$templatesPath = $basePath . '/templates';
 
 $container->add("APP_ENV", new StringArgument($appEnv));
-$databaseUrl = 'sqlite:///'. BASE_PATH . '/var/db.sqlite';
+$databaseUrl = 'sqlite:///'. $basePath . '/var/db.sqlite';
 
 $container->add('base-commands-namespace', new StringArgument('ChidoUkaigwe\\Framework\\Console\\Command\\'));
 
@@ -95,7 +96,7 @@ $container->addShared(Connection::class, function () use ($container):Connection
 $container->add('database:migrations:migrate', MigrateDatabase::class)
             ->addArguments([
                 Connection::class,
-                new StringArgument(BASE_PATH. '/migrations'),
+                new StringArgument($basePath. '/migrations'),
             ]);
 
 $container->add(RouterDispatch::class)
